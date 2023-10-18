@@ -1,69 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="edu.upenn.sas.archaeologyapp.ui.LoginActivity">
+
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="208dp"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="115dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="550dp"
+
+
+        android:backgroundTint="@color/newColorPrimary"
         android:text="Login"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/newColorOnPrimary"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userPassword" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/CircularButtonStyle" />
 
-    <EditText
-        android:id="@+id/userPassword"
-        android:layout_width="150dp"
-        android:layout_height="37dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="392dp"
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:id="@+id/userNameLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="288dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="330dp"
         android:ems="10"
-        android:inputType="textPassword"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userName"
-        app:layout_constraintVertical_bias="0.958" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="77dp"
-        android:layout_height="26dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="252dp"
-        android:text="User name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginBottom="380dp"
-        android:text="User password"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/userPassword"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.759" />
-
-    <EditText
-        android:id="@+id/userName"
-        android:layout_width="150dp"
-        android:layout_height="37dp"
-        android:layout_marginTop="232dp"
-        android:layout_marginEnd="60dp"
-        android:ems="10"
+        android:hint="username"
         android:inputType="text"
+
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        >
 
-</android.support.constraint.ConstraintLayout>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/userName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/userPasswordLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="288dp"
+        android:layout_height="60dp"
+        android:ems="10"
+        android:hint="password"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/loginButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userNameLayout"
+        app:layout_constraintVertical_bias="0.173">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/userPassword"
+            android:inputType="textPassword"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/aaaaaa"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="288dp"
+        android:layout_height="60dp"
+        android:inputType="none"
+        android:hint="server"
+        app:expandedHintEnabled="false"
+        app:layout_constraintBottom_toTopOf="@+id/loginButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userPasswordLayout">
+
+        <AutoCompleteTextView
+            android:id="@+id/bbbbbb"
+            android:inputType="none"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            tools:ignore="Deprecated" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/Widget.MaterialComponents.TextView"
+        android:layout_width="284dp"
+        android:layout_height="185dp"
+        android:layout_marginTop="140dp"
+        android:fontFamily="@font/inter_bold"
+        android:text="Archaeological Survey Location Collector"
+        android:textAlignment="center"
+        android:textColor="@color/newColorPrimary"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/newColorPrimary" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

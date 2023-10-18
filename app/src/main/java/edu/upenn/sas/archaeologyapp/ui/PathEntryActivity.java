@@ -2,8 +2,8 @@ package edu.upenn.sas.archaeologyapp.ui;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -137,11 +137,11 @@ public class PathEntryActivity extends BaseActivity
     private void initializeViews()
     {
 
-        // Set the toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar_path_entry);
-        setSupportActionBar(toolbar);
-        // Configure up button to go back to previous activity
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        // Set the toolbar
+//        Toolbar toolbar = findViewById(R.id.toolbar_path_entry);
+//        setSupportActionBar(toolbar);
+//        // Configure up button to go back to previous activity
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Get references to the latitude, longitude, altitude, and status text views
         beginLatitudeTextView = findViewById(R.id.beginLatitude);
         beginLongitudeTextView = findViewById(R.id.beginLongitude);

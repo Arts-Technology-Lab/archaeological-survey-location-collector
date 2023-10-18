@@ -17,7 +17,7 @@ import edu.upenn.sas.archaeologyapp.R;
  * The adapter class for populating each item in the bucket list
  * Created by eanvith on 30/12/16.
  */
-public class BucketListEntryAdapter extends ArrayAdapter<DataEntryElement>
+public class NewBucketListEntryAdapter extends ArrayAdapter<DataEntryElement>
 {
     // Resource ID of the layout for a bucket list entry
     private final int listItemLayoutResource;
@@ -28,7 +28,7 @@ public class BucketListEntryAdapter extends ArrayAdapter<DataEntryElement>
      * @param context Current app context
      * @param listItemLayoutResource Resource ID of the layout for a bucket list entry
      */
-    public BucketListEntryAdapter(final Context context, final int listItemLayoutResource)
+    public NewBucketListEntryAdapter(final Context context, final int listItemLayoutResource)
     {
         super(context, 0);
         this.listItemLayoutResource = listItemLayoutResource;
@@ -116,9 +116,10 @@ public class BucketListEntryAdapter extends ArrayAdapter<DataEntryElement>
         if (tag == null || !(tag instanceof ViewHolder))
         {
             viewHolder = new ViewHolder();
-            viewHolder.categoryTV = workingView.findViewById(R.id.bucket_list_entry_category_text_view);
-            viewHolder.imageView = workingView.findViewById(R.id.bucket_list_entry_image_view);
-            viewHolder.mapButton = workingView.findViewById(R.id.bucket_list_entry_maps_button);
+            //viewHolder.categoryTV = workingView.findViewById(R.id.bucket_list_entry_category_text_view);
+            viewHolder.categoryTV = workingView.findViewById(R.id.new_bucket_list_entry_category_text_view);
+            viewHolder.imageView = workingView.findViewById(R.id.new_bucket_list_entry_image_view);
+            viewHolder.mapButton = workingView.findViewById(R.id.new_bucket_list_entry_maps_button);
             workingView.setTag(viewHolder);
         }
         else

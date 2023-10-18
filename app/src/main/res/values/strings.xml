@@ -3,7 +3,7 @@
     <string name="splash_activity_title_text">Archaeological Survey\nLocation Collector</string>
     <string name="title_activity_main">Finds List</string>
     <string name="title_activity_paths">Paths List</string>
-    <string name="title_activity_data_entry">New Record Form</string>
+    <string name="title_activity_data_entry">Add Find</string>
     <string name="title_activity_path_entry">New Path Form</string>
     <string name="get_the_gps_location">Get the GNSS location</string>
     <string name="data_entry_show_map_button_description">Show GNSS location on map</string>
@@ -41,7 +41,7 @@
     <string name="external_storage_permission_granted_prompt">Permission granted. Please try capturing image again.</string>
     <string name="external_storage_permission_denied_prompt">This app needs external storage access for capturing images with camera. Please allow access.</string>
     <string name="camera_app_not_found">Could not find any apps that can take a picture</string>
-    <string name="comments_text_input_hint">Additional Comments</string>
+    <string name="comments_text_input_hint">Notes</string>
     <string name="connection_settings">Connection Settings</string>
     <string name="sync_button">SYNC</string>
     <string name="title_activity_sync">Sync</string>
@@ -78,7 +78,7 @@
     <string name = "sample">Sample</string>
     <string name = "fixed">Fixed</string>
     <string name = "updating">Updating</string>
-    <string name = "select_material">Please select a material</string>
+    <string name = "select_material">Material</string>
     <string name = "select_context">Please select a context</string>
     <string name = "reach_host">Reach Host:</string>
     <string name = "reach_port">Reach Port:</string>

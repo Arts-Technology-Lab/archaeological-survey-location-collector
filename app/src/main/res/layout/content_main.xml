@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main_activity_swipe_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+
+
     android:padding="10dp" >
     <LinearLayout
         android:layout_margin="16dp"
@@ -79,7 +81,7 @@
             </LinearLayout>
         <fragment
             android:name="com.google.android.gms.maps.MapFragment"
-            android:id="@+id/map"
+            android:id="@+id/map_named_was_map_but_changed_for_refactoring_original_was_map"
             android:layout_width="match_parent"
             android:layout_height="204dp" />
         <ListView
@@ -92,4 +94,4 @@
             android:paddingTop="15dp"
             android:layout_marginBottom="?attr/actionBarSize"/>
     </LinearLayout>
-</android.support.v4.widget.SwipeRefreshLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

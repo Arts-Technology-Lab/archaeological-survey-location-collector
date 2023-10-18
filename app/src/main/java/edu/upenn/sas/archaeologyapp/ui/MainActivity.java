@@ -1,19 +1,21 @@
 package edu.upenn.sas.archaeologyapp.ui;
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -31,6 +33,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.material.internal.ToolbarUtils;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Timer;
@@ -45,6 +52,8 @@ import gov.nasa.worldwind.geom.Angle;
 import gov.nasa.worldwind.geom.coords.UTMCoord;
 import static edu.upenn.sas.archaeologyapp.R.id.map;
 
+import static edu.upenn.sas.archaeologyapp.util.ExtraUtils.getSharedPreferenceString;
+import static edu.upenn.sas.archaeologyapp.util.ExtraUtils.putString;
 import static edu.upenn.sas.archaeologyapp.util.StaticSingletons.getRequestQueueSingleton;
 import static edu.upenn.sas.archaeologyapp.services.UserAuthentication.getToken;
 import static edu.upenn.sas.archaeologyapp.services.UserAuthentication.setToken;
@@ -53,6 +62,9 @@ import static edu.upenn.sas.archaeologyapp.services.VolleyStringWrapper.makeVoll
 import static edu.upenn.sas.archaeologyapp.services.requests.MaterialRequest.materialRequest;
 import static edu.upenn.sas.archaeologyapp.util.Constants.MATERIALS_URL;
 import static edu.upenn.sas.archaeologyapp.util.Constants.globalWebServerURL;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 /**
  * This activity shows the user the list of items presently in his bucket
@@ -71,7 +83,9 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     // Reference to the list view
     ListView listView;
     // Reference to the list entry adapter for finds
-    BucketListEntryAdapter findsListEntryAdapter;
+//    BucketListEntryAdapter findsListEntryAdapter;
+
+    NewBucketListEntryAdapter findsListEntryAdapter;
     // Reference to the list entry adapter for paths
     PathEntryAdapter pathsListEntryAdapter;
     // Reference to the swipe refresh layout
@@ -94,6 +108,32 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     // A request queue to handle python requests
     private String token;
     RequestQueue queue;
+
+
+    /**
+     * Change the appbar title
+     * @param title - Change the appbar title
+     */
+    private void setAppBarTitle(String title){
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.topAppBarMain);
+        toolbar.setTitle(title);
+
+
+    }
+
+    private void changeButton(){
+        if ( displayMode == FINDS_MODE){
+            findViewById( R.id.addFindButton).setVisibility(View.VISIBLE);
+            findViewById( R.id.recordPathButton).setVisibility(View.GONE);
+           //
+        }else if (displayMode == PATHS_MODE){
+            findViewById( R.id.addFindButton).setVisibility(View.GONE);
+            findViewById( R.id.recordPathButton).setVisibility(View.VISIBLE);
+        }
+    }
+
+
     /**
      * Activity launched
      * @param savedInstanceState - state from memory
@@ -163,6 +203,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
             }
         });
         cacheOptionsFromDatabase();
+        changeButton();
     }
 
     /**
@@ -171,7 +212,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     private void initializeViews()
     {
         // Set the toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar_main);
+        Toolbar toolbar = findViewById(R.id.topAppBarMain);
         setSupportActionBar(toolbar);
         // Set the bottom bar
         displayModeBar = findViewById(R.id.displayModeBar);
@@ -189,15 +230,20 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
                     case R.id.navigation_finds:
                         // Clicked on finds button
                         displayMode = FINDS_MODE;
+
+                        changeButton();
+                        setAppBarTitle("Finds List");
                         listView.setAdapter(findsListEntryAdapter);
-                        setTitle(R.string.title_activity_main);
+                        setTitle(R.string.title_activity_main);//Keep here for compatiability
                         populateDataFromLocalStore();
                         return true;
                     case R.id.navigation_paths:
                         // Clicked on paths button
                         displayMode = PATHS_MODE;
+                        changeButton();
+                        setAppBarTitle("Paths List");
                         listView.setAdapter(pathsListEntryAdapter);
-                        setTitle(R.string.title_activity_paths);
+                        setTitle(R.string.title_activity_paths);//Keep here for compatiability
                         populateDataFromLocalStore();
                         return true;
                     case R.id.logout:
@@ -245,8 +291,9 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
             }
         });
         // Store references to the list and list entry
-        listView = findViewById(R.id.main_activity_list_view);
-        findsListEntryAdapter = new BucketListEntryAdapter(this, R.layout.bucket_list_entry);
+//        listView = findViewById(R.id.main_activity_list_view);
+        listView = findViewById(R.id.new_main_activity_list_view);
+        findsListEntryAdapter = new NewBucketListEntryAdapter(this, R.layout.new_bucket_list_entry);
         pathsListEntryAdapter = new PathEntryAdapter(this, R.layout.paths_list_entry);
         // Default to listing the finds first
         listView.setAdapter(findsListEntryAdapter);
@@ -322,6 +369,28 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         swipeRefreshLayout.setOnRefreshListener(this);
         // Populate the list with data from DB
         populateDataFromLocalStore();
+
+
+        findViewById(R.id.addFindButton).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view)
+            {
+                MainActivity.super.startActivityUsingIntent(DataEntryActivity.class, false);
+//
+            }
+        });
+        findViewById(R.id.recordPathButton).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view)
+            {
+                MainActivity.super.startActivityUsingIntent(PathEntryActivity.class, false);
+            }
+        });
+
+
+
     }
 
     /**
@@ -610,6 +679,21 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         }
     }
 
+    private void loadMaterialsJSONStringFromAssets(){
+
+        try {
+            InputStream inputStream = (getApplicationContext().getAssets().open("json/materials.json"));
+            int size = inputStream.available();
+            byte[] buffer = new byte[size];
+            inputStream.read(buffer);
+            putString("materialGeneralAPIResponse", new String(buffer), context);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     /**
      * Cache database options
      */
@@ -658,9 +742,23 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
             }
         });
 
-        materialRequest(MATERIALS_URL,getToken(context),queue,context,materialGeneralResponsePreviouslyLoaded);
+
+        //We only load materials from local assets or via restFul
+        String currentmaterialString = getSharedPreferenceString("materialGeneralAPIResponse", context);
+        System.out.println(currentmaterialString);
+        if (currentmaterialString == null || currentmaterialString.equals("") ){
+            loadMaterialsJSONStringFromAssets();
+            // materialRequest(MATERIALS_URL,getToken(context),queue,context,materialGeneralResponsePreviouslyLoaded);
+
+        }
+
+
+
 
     }
+
+
+
 
     /**
      * Activity paused

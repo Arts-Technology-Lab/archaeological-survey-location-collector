@@ -6,7 +6,7 @@ import static edu.upenn.sas.archaeologyapp.util.Constants.DEFAULT_VOLLEY_TIMEOUT
 
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;

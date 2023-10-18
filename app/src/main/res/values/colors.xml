@@ -15,4 +15,22 @@
     <color name="dataEntryButtonBackgroundColorPaused">#444444</color>
     <color name="dataEntryButtonTextColor">#FFFFFF</color>
 
+    <color name="newColorPrimary">#4956B0</color>
+
+    <color name="newColorOnPrimary">#FFFFFF</color>
+    <color name="newColorPrimaryDark">#303F9F</color>
+    <color name="newColorAccent">#FF4081</color>
+    <color name="newColorTintedBackground">#EEEEEE</color>
+    <color name="newGenericWhiteBackground">#FFFFFF</color>
+
+    <!-- SPLASH ACTIVITY -->
+    <color name="newSplashTextBackground">#000000</color>
+    <color name="newSplashTextColor">#FFFFFF</color>
+
+    <!-- DATA ENTRY ACTIVITY -->
+    <color name="newDataEntryButtonBackgroundColor">#000000</color>
+    <color name="newDeleteButtonBackgroundColor">#222222</color>
+    <color name="newDataEntryButtonBackgroundColorPaused">#444444</color>
+    <color name="newDataEntryButtonTextColor">#FFFFFF</color>
+
 </resources>

@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/favorite"
+        android:contentDescription="Come as you are"
+        android:icon="@android:drawable/stat_notify_sync"
+        android:title="kc_winwhouse"
+        app:showAsAction="ifRoom" />
+
+
+
+
+</menu>

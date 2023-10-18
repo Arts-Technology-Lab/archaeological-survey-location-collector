@@ -15,18 +15,22 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Vibrator;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
+
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -40,12 +44,17 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import edu.upenn.sas.archaeologyapp.services.LocationCollector;
@@ -56,6 +65,7 @@ import edu.upenn.sas.archaeologyapp.util.Constants;
 import gov.nasa.worldwind.geom.Angle;
 import gov.nasa.worldwind.geom.coords.UTMCoord;
 
+import static edu.upenn.sas.archaeologyapp.util.ExtraUtils.getSharedPreferenceString;
 import static edu.upenn.sas.archaeologyapp.util.StaticSingletons.getRequestQueueSingleton;
 import static edu.upenn.sas.archaeologyapp.services.UserAuthentication.getToken;
 import static edu.upenn.sas.archaeologyapp.services.requests.ContextNumbersRequest.contextJSONArray2ContextStrArray;
@@ -66,10 +76,14 @@ import static edu.upenn.sas.archaeologyapp.util.Constants.DEFAULT_REACH_HOST;
 import static edu.upenn.sas.archaeologyapp.util.Constants.DEFAULT_REACH_PORT;
 
 import com.android.volley.RequestQueue;
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 
 /**
  * The Activity where the user enters all the data
@@ -117,6 +131,66 @@ public class DataEntryActivity extends BaseActivity {
     //
     private RequestQueue requestQueue;
 
+    boolean pressing = false;
+    private  Map<String, ArrayList<String>> materialCategories;
+
+    private void getJSONArrayFromMaterialsJSONString() throws JSONException {
+//        1. Parse the jsonarray into string
+//        2. Make it a map, key is the material, value is an array of categories
+        String materialString = getSharedPreferenceString("materialGeneralAPIResponse", context);
+        JSONArray jA   = new JSONArray(materialString);
+        Map<String, ArrayList<String>> hsmap = new HashMap<String, ArrayList<String>>();
+        for(int i = 0; i < jA.length(); i++){
+            String currentRowMaterial = ((JSONObject)jA.get(i)).getString("material");
+            String currentRowCategory = ((JSONObject)jA.get(i)).getString("category");
+
+            if (!hsmap.containsKey(currentRowMaterial)){
+                ArrayList temp = new ArrayList<String>();
+                temp.add(currentRowCategory);
+                hsmap.put(currentRowMaterial, temp);
+            }else{
+                hsmap.get(currentRowMaterial).add(currentRowCategory);
+            }
+        }
+
+        materialCategories = (hsmap);
+
+    }
+
+    private void setCategoriesDropdown(String material){
+        //Notice that category is always set after materials.
+        if(materialCategories != null && materialCategories.containsKey(material)){
+            String [] categories =  materialCategories.get(material).toArray((new String[materialCategories.get(material).size()]));
+            ArrayAdapter arrayAdapter = new ArrayAdapter(context, R.layout.listitem, categories);
+            AutoCompleteTextView editText =  findViewById(R.id.dddw);
+            editText.setText(categories[0], false);
+            editText.setAdapter(arrayAdapter);
+        }else{
+            Toast.makeText(DataEntryActivity.this, "This material doesn't have categories", Toast.LENGTH_LONG).show();
+
+        }
+    }
+
+    private void initializeMaterialsDropdown(){
+
+                 //Material injection
+        if (materialCategories!=null ){
+            String [] materials =  materialCategories.keySet().toArray(new String[materialCategories.size()]);
+            ArrayAdapter arrayAdapter = new ArrayAdapter(context, R.layout.listitem, materials);
+            AutoCompleteTextView editText =  findViewById(R.id.bbbwdwdwbbb);
+            editText.setText(materials[0], false);
+            editText.setAdapter(arrayAdapter);
+        }else{
+            Toast.makeText(DataEntryActivity.this, "Materials and categories are not set yet", Toast.LENGTH_LONG).show();
+
+        }
+
+    }
+
+
+
+
+
     /**
      * Activity created
      *
@@ -125,10 +199,13 @@ public class DataEntryActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         context = this;
+
         requestQueue = getRequestQueueSingleton(getApplicationContext());;
-        setContentView(R.layout.activity_data_entry);
+        setContentView(R.layout.content_data_entry);
         initializeViews();
+
         // Load persistent app data from shared preferences
         SharedPreferences settings = getSharedPreferences(PREFERENCES, 0);
         String reachHost = settings.getString("reachHost", DEFAULT_REACH_HOST);
@@ -168,6 +245,13 @@ public class DataEntryActivity extends BaseActivity {
                 setReachStatus(status);
             }
         };
+
+        try {
+            getJSONArrayFromMaterialsJSONString();
+            initializeMaterialsDropdown();
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -198,10 +282,10 @@ public class DataEntryActivity extends BaseActivity {
         // Set the toolbar
 
 
-        Toolbar toolbar = findViewById(R.id.toolbar_data_entry);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = findViewById(R.id.toolbar_data_entry);
+//        setSupportActionBar(toolbar);
         // Configure up button to go back to previous activity
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Get references to the latitude, longitude, altitude, and status text views
         latitudeTextView = findViewById(R.id.data_entry_lat_text);
         longitudeTextView = findViewById(R.id.data_entry_lng_text);
@@ -217,11 +301,13 @@ public class DataEntryActivity extends BaseActivity {
         GPSConnectionTextView.setText(String.format(getResources().getString(R.string.GPSConnection), getString(R.string.blank_assignment)));
         reachConnectionTextView.setText(String.format(getResources().getString(R.string.reachConnection), getString(R.string.blank_assignment)));
         // Get reference to the image container
-        imageContainer = findViewById(R.id.data_entry_image_container);
+        //imageContainer = findViewById(R.id.data_entry_image_container);
+        imageContainer = findViewById( R.id.new_data_entry_image_container);
         // Get reference to the comments edit text
         commentsEditText = findViewById(R.id.data_entry_comment_text_view);
         // Configure switch handler for update gps switch
         ToggleButton updateGPSButton = findViewById(R.id.data_entry_update_gps);
+
         updateGPSButton.setChecked(true);
         updateGPSButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             /**
@@ -237,7 +323,8 @@ public class DataEntryActivity extends BaseActivity {
                 } else {
                     // Ensure we only update the sample #, UTM position if the user pressed the button
                     // (otherwise this would happen on activity load)
-                    if (buttonView.isPressed()) {
+                    if (buttonView.isPressed() || pressing == true) {
+                        pressing = false;
                         setUTMLocation();
                     }
                 }
@@ -264,7 +351,9 @@ public class DataEntryActivity extends BaseActivity {
             }
         });
         // Configure click handler for opening gallery and allowing the user to select an image
-        findViewById(R.id.data_entry_open_gallery).setOnClickListener(new View.OnClickListener() {
+//        findViewById(R.id.data_entry_open_gallery).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.galleryButton).setOnClickListener(new View.OnClickListener() {
+
             /**
              * User clicked gallery
              * @param v - gallery button
@@ -278,8 +367,28 @@ public class DataEntryActivity extends BaseActivity {
                 startActivityForResult(chooseIntent, SELECT_IMAGE);
             }
         });
+
+        findViewById(R.id.gps_text).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                String sampleText= (String)sampleTextView.getText();
+
+                if(sampleText == null || sampleText.equals("")){
+                    Toast.makeText(DataEntryActivity.this, "Still locating", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(DataEntryActivity.this, sampleText, Toast.LENGTH_SHORT).show();
+                    pressing = true;
+                    updateGPSButton.performClick();
+
+                }
+
+
+            }
+        });
+
         // Configure click handler for opening camera and allowing the user to take a picture
         findViewById(R.id.data_entry_open_camera).setOnClickListener(new View.OnClickListener() {
+//        findViewById(R.id.cameraeButton).setOnClickListener(new View.OnClickListener() {
             /**
              * User clicked camera
              * @param v - camera button
@@ -364,7 +473,29 @@ public class DataEntryActivity extends BaseActivity {
 
             });
         }
+
+        EditText materialEdit = (EditText)findViewById(R.id.bbbwdwdwbbb);
+        materialEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                System.out.println("Whatsup bro;");
+                setCategoriesDropdown(s.toString());
+            }
+
+        });
+
+
     }
+
+
+
     /**
      * Get the materials from the saved sharedPreferences.
      * @param context - The context of the activity
@@ -430,6 +561,8 @@ public class DataEntryActivity extends BaseActivity {
             northingTextView.setText(String.valueOf(northing));
             eastingTextView.setText(String.valueOf(easting));
             sampleTextView.setText(String.valueOf(sample));
+
+
         } else {
             resetUTMLocation();
         }
@@ -680,10 +813,6 @@ public class DataEntryActivity extends BaseActivity {
         else if (contextNumberDropdown.getCount() > 1){
             contextNumberDropdown.setSelection(contextNumberDropdown.getCount()-2);
         }
-
-
-
-
     }
 
     /**

@@ -24,6 +24,11 @@ public class ExtraUtils {
         editor.commit();
     }
 
+    public static String getSharedPreferenceString(String key, Context context){
+        SharedPreferences settings = context.getSharedPreferences(PREFERENCES, 0);
+        return settings.getString(key, null);
+    }
+
     public static class ImagePathBucketIDPair{
         private String imagePath;
         private String bucketID;

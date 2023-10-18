@@ -1,36 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="edu.upenn.sas.archaeologyapp.ui.MainActivity">
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar_main"
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_main"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <ListView
+            android:id="@+id/new_main_activity_list_view"
+            android:layout_width="379dp"
+            android:layout_height="199dp"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/addFindButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.837"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/map"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayoutMain"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-    </android.support.design.widget.AppBarLayout>
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBarMain"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:menu="@menu/loopy_top_app_bar"
+
+                app:title="Finds List"
+                app:titleTextAppearance="@style/TextAppearance.MaterialComponents.Headline5" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.MapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="266dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayoutMain"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/displayModeBar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/colorPrimary"
+            android:foregroundGravity="bottom"
+            app:itemBackground="@color/colorPrimary"
+            app:itemIconTint="@color/selector_item_color"
+            app:itemTextColor="@color/selector_item_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/display_mode"></com.google.android.material.bottomnavigation.BottomNavigationView>
+
+        <Button
+            android:id="@+id/recordPathButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="130dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="284dp"
+            android:backgroundTint="@color/newColorPrimary"
+            android:scaleType="fitXY"
+            android:text="Record Path"
+            android:textColor="@color/newColorOnPrimary"
+
+            android:textSize="12sp"
+            android:visibility="invisible"
+
+            app:icon="@android:drawable/ic_notification_overlay"
+            app:iconPadding="3dp"
+            app:iconTint="@color/dataEntryButtonTextColor"
+            app:iconTintMode="multiply"
+            app:layout_constraintBottom_toTopOf="@+id/displayModeBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/map"
+            app:shapeAppearanceOverlay="@style/CircularButtonStyle" />
+
+        <Button
+            android:id="@+id/addFindButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="115dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="282dp"
+            android:backgroundTint="@color/newColorPrimary"
+            android:scaleType="fitXY"
+
+            android:text="Add Find"
+            android:textColor="@color/newColorOnPrimary"
+            app:icon="@drawable/baseline_add_white_24dp"
+
+            app:iconPadding="0dp"
+            app:iconTint="@color/dataEntryButtonTextColor"
+            app:iconTintMode="multiply"
+            app:layout_constraintBottom_toTopOf="@+id/displayModeBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/map"
+            app:shapeAppearanceOverlay="@style/CircularButtonStyle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <include
         layout="@layout/content_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="?attr/actionBarSize"
+        android:visibility="gone"
         app:layout_anchorGravity="left|top" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
-        android:gravity="bottom">
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/displayModeBar"
+        android:gravity="bottom"
+        android:visibility="gone">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/displayModeBar_changed_due_refactoring"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
@@ -38,22 +140,24 @@
             app:itemBackground="@color/colorPrimary"
             app:itemIconTint="@color/selector_item_color"
             app:itemTextColor="@color/selector_item_color"
-            app:menu="@menu/display_mode">
-        </android.support.design.widget.BottomNavigationView>
+            app:menu="@menu/display_mode"></com.google.android.material.bottomnavigation.BottomNavigationView>
     </RelativeLayout>
-    <android.support.design.widget.FloatingActionButton
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_new"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="60dp"
+        android:visibility="gone"
         app:srcCompat="@drawable/ic_plus_one_white_24dp" />
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_sync"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_gravity="top|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/stat_notify_sync" />
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

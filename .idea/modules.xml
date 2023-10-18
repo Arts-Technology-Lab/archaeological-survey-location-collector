@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/archaeological-survey-location-collector.iml" filepath="$PROJECT_DIR$/.idea/modules/archaeological-survey-location-collector.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/archaeological-survey-location-collector.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/archaeological-survey-location-collector.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/archaeological-survey-location-collector.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/archaeological-survey-location-collector.app.androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/archaeological-survey-location-collector.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/archaeological-survey-location-collector.app.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/archaeological-survey-location-collector.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/archaeological-survey-location-collector.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/archaeological-survey-location-collectoraaa.iml" filepath="$PROJECT_DIR$/.idea/modules/archaeological-survey-location-collectoraaa.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/archaeological-survey-location-collectoraaa.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/archaeological-survey-location-collectoraaa.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/archaeological-survey-location-collectoraaa.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/archaeological-survey-location-collectoraaa.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/archaeological-survey-location-collectoraaa.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/archaeological-survey-location-collectoraaa.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/archaeological-survey-location-collectoraaa.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/archaeological-survey-location-collectoraaa.app.unitTest.iml" />
     </modules>
   </component>
 </project>

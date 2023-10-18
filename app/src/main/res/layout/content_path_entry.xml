@@ -1,24 +1,227 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:fitsSystemWindows="true"
     tools:context="edu.upenn.sas.archaeologyapp.ui.PathEntryActivity"
     tools:showIn="@layout/activity_path_entry">
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="285dp"
+                android:layout_height="46dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/roboto"
+                android:text="Easting is LOCKED. Path will maintain a constaint value for Easting."
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/dataEntryButtonBackgroundColor"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="52dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="92dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/roboto"
+                android:text="N"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#45483C"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="88dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="80dp"
+                android:text="Zone"
+                android:textAlignment="center"
+                android:textColor="#45483C"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/appBarLayoutPath" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="52dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="96dp"
+                android:fontFamily="@font/roboto"
+                android:text="38"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#45483C"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="88dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="72dp"
+                android:layout_marginTop="32dp"
+                android:text="Easting"
+                android:textAlignment="center"
+                android:textColor="#45483C"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="115dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="72dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/roboto"
+                android:text="478130"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#45483C"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="88dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="80dp"
+                android:text="Northing"
+                android:textAlignment="center"
+                android:textColor="#45483C"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="52dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="96dp"
+                android:fontFamily="@font/roboto"
+                android:text="38"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#45483C"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+            <Button
+                android:id="@+id/pathStartIcon"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="115dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="48dp"
+                android:backgroundTint="@color/newColorPrimary"
+                android:scaleType="fitXY"
+                android:text="Start"
+                android:textColor="@color/newColorOnPrimary"
+
+                android:textSize="12sp"
+                app:icon="?android:attr/listChoiceIndicatorSingle"
+                app:iconPadding="0dp"
+                app:iconTint="@color/dataEntryButtonTextColor"
+
+
+                app:iconTintMode="src_in"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView15"
+                app:shapeAppearanceOverlay="@style/CircularButtonStyle" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="88dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="72dp"
+                android:layout_marginTop="40dp"
+                android:text="Hemisphere"
+                android:textColor="#45483C"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/appBarLayoutPath" />
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appBarLayoutPath"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/topAppBarPath"
+                    style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:menu="@menu/top_app_bar"
+                    app:navigationIcon="@drawable/cross"
+                    app:title="Start New Path"
+                    app:titleTextAppearance="@style/TextAppearance.MaterialComponents.Headline5" />
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+    <!--    tools:context="edu.upenn.sas.archaeologyapp.ui.PathEntryActivity"-->
+    <!--    tools:showIn="@layout/activity_path_entry"-->
+
+
+
     <LinearLayout
-        android:layout_margin="16dp"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="15dp"
             android:layout_marginTop="15dp"
-            android:background="@color/colorTintedBackground">
+            android:background="@color/colorTintedBackground"
+            android:orientation="horizontal"
+            android:padding="15dp">
+
             <TextView
                 android:id="@+id/GPSConnection"
                 android:layout_width="0dp"
@@ -29,6 +232,7 @@
                 android:maxLines="1"
                 android:text="@string/GPSConnection"
                 android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/reachConnection"
                 android:layout_width="0dp"
@@ -40,43 +244,48 @@
                 android:text="@string/reachConnection"
                 android:textStyle="bold" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="15dp"
             android:layout_marginTop="15dp"
+            android:background="@color/colorTintedBackground"
             android:orientation="vertical"
-            android:background="@color/colorTintedBackground">
+            android:padding="15dp">
+
             <LinearLayout
-                android:padding="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:ellipsize="end"
-                    android:textStyle="bold"
-                    android:text="@string/start_point"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:maxLines="1" />
+                android:orientation="horizontal"
+                android:padding="5dp">
 
                 <TextView
-                    android:ellipsize="end"
-                    android:textStyle="bold"
-                    android:text="@string/end_point"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
                     android:gravity="center"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:text="@string/start_point"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="@string/end_point"
+                    android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
-                android:padding="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="5dp">
+
                 <TextView
                     android:id="@+id/beginGrid"
                     android:layout_width="0dp"
@@ -87,6 +296,7 @@
                     android:maxLines="1"
                     android:text="@string/grid"
                     android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/endGrid"
                     android:layout_width="0dp"
@@ -98,11 +308,13 @@
                     android:text="@string/grid"
                     android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
-                android:padding="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="5dp">
+
                 <TextView
                     android:id="@+id/beginEasting"
                     android:layout_width="0dp"
@@ -113,6 +325,7 @@
                     android:maxLines="1"
                     android:text="@string/easting"
                     android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/endEasting"
                     android:layout_width="0dp"
@@ -124,11 +337,13 @@
                     android:text="@string/easting"
                     android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
-                android:padding="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="5dp">
+
                 <TextView
                     android:id="@+id/beginNorthing"
                     android:layout_width="0dp"
@@ -139,6 +354,7 @@
                     android:maxLines="1"
                     android:text="@string/northing"
                     android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/endNorthing"
                     android:layout_width="0dp"
@@ -150,11 +366,13 @@
                     android:text="@string/northing"
                     android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
-                android:padding="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="5dp">
+
                 <TextView
                     android:id="@+id/beginLatitude"
                     android:layout_width="0dp"
@@ -165,6 +383,7 @@
                     android:maxLines="1"
                     android:text="@string/latitude"
                     android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/endLatitude"
                     android:layout_width="0dp"
@@ -176,11 +395,13 @@
                     android:text="@string/latitude"
                     android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
-                android:padding="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="5dp">
+
                 <TextView
                     android:id="@+id/beginLongitude"
                     android:layout_width="0dp"
@@ -191,6 +412,7 @@
                     android:maxLines="1"
                     android:text="@string/longitude"
                     android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/endLongitude"
                     android:layout_width="0dp"
@@ -202,11 +424,13 @@
                     android:text="@string/longitude"
                     android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
-                android:padding="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="5dp">
+
                 <TextView
                     android:id="@+id/beginAltitude"
                     android:layout_width="0dp"
@@ -217,6 +441,7 @@
                     android:maxLines="1"
                     android:text="@string/altitude"
                     android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/endAltitude"
                     android:layout_width="0dp"
@@ -228,11 +453,13 @@
                     android:text="@string/altitude"
                     android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
-                android:padding="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="5dp">
+
                 <TextView
                     android:id="@+id/beginStatus"
                     android:layout_width="0dp"
@@ -243,6 +470,7 @@
                     android:maxLines="1"
                     android:text="@string/status"
                     android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/endStatus"
                     android:layout_width="0dp"
@@ -254,11 +482,13 @@
                     android:text="@string/status"
                     android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
-                android:padding="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="5dp">
+
                 <TextView
                     android:id="@+id/beginTime"
                     android:layout_width="0dp"
@@ -269,6 +499,7 @@
                     android:maxLines="1"
                     android:text="@string/timestamp"
                     android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/endTime"
                     android:layout_width="0dp"
@@ -281,26 +512,30 @@
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="15dp"
             android:layout_marginTop="15dp"
-            android:background="@color/colorTintedBackground">
+            android:background="@color/colorTintedBackground"
+            android:padding="15dp">
+
             <TextView
-                android:ellipsize="end"
-                android:textStyle="bold"
-                android:text="@string/whose_path"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:ellipsize="end"
                 android:gravity="center_vertical"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:text="@string/whose_path"
+                android:textStyle="bold" />
+
             <Spinner
                 android:id="@+id/path_entry_team_members_drop_down"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"/>
+                android:layout_margin="16dp" />
         </RelativeLayout>
+
         <Button
             android:id="@+id/path_entry_submit_button"
             android:layout_width="match_parent"
@@ -311,6 +546,7 @@
             android:onClick="submitButtonPressed"
             android:text="@string/start_path_button"
             android:textColor="@color/dataEntryButtonTextColor" />
+
         <Button
             android:id="@+id/path_entry_delete_button"
             android:layout_width="match_parent"
@@ -319,11 +555,14 @@
             android:layout_weight="1"
             android:background="@color/deleteButtonBackgroundColor"
             android:onClick="deleteButtonPressed"
-            android:visibility="gone"
             android:text="@string/delete_path_button"
-            android:textColor="@color/dataEntryButtonTextColor" />
+            android:textColor="@color/dataEntryButtonTextColor"
+            android:visibility="gone" />
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="50dp" />
     </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+</androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>

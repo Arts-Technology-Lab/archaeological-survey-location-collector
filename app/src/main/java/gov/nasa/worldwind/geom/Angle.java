@@ -4,7 +4,7 @@
  * All Rights Reserved.
  */
 package gov.nasa.worldwind.geom;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 /**
  * Represents a geometric angle. Instances of <code>Angle</code> are immutable. An angle can be obtained through the
  * factory methods {@link #fromDegrees} and {@link #fromRadians}.
